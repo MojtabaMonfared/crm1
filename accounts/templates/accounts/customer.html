@@ -1,0 +1,107 @@
+{% extends "accounts/main.html" %}
+
+{% block content %}
+
+<!-- Customer Row -->
+<div class="row">
+    <div class="col-md">
+        <div class="card" id="customers-box">
+        <div class="card-body">
+            <h6>اطلاعات مشتری:</h6>
+            <hr>
+            <a class="btn btn-primary btn-sm btn-block" href=""><i class="fa fa-refresh" aria-hidden="true"></i></a>
+            <a class="btn btn-outline-success btn-sm btn-block" href="{% url 'create_order' customer.id %}"><i class="fa fa-plus" aria-hidden="true"></i></a>
+        </div>
+    </div>
+</div>
+    <div class="col-md">
+        <div class="card" id="customers-box">
+        <div class="card-body" id="customers-box">
+            <h6>راه های تماس</h6>
+            <hr>
+            {% if customer.email and customer.phone %}
+                <p>ایمیل: {{ customer.email }}</p>
+                <p>تلفن تماس: {{ customer.phone }}</p>
+            {% else %}
+                <p>ایمیل: <span class="text-danger">ثبت نشده</span></p>
+                <p>تلفن تماس: <span class="text-danger">ثبت نشده</span></p>
+            {% endif %}
+        </div>
+        </div>
+    </div>
+
+    <div class="col-md">
+        <div class="card" id="customers-box">
+        <div class="card-body" id="customers-box">
+            <h6>تعداد کل سفارشات ثبت شده</h6>
+            <hr>
+            <h1 style="text-align: center;padding: 10px">{{ order_count }}</h1>
+        </div>
+    </div>
+    </div>
+</div>
+<!-- End Customer Row -->
+
+<br>
+<!-- Search Row -->
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <div class="card-body" id="customers-box">
+
+                <form method="get">
+
+                    {{ myFilter.form }}
+
+                    <button class="btn btn-primary" type="submit">جستجو</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Search Row -->
+
+<br>
+<!-- Table Row -->
+<div class="row">
+    <div class="col-md">
+        <div class="card" id="customers-box">
+            <div class="card-body">
+                <table class="table table-sm table-hover">
+                    <tr>
+                        <th>محصول</th>
+                        <th>توضیحات</th>
+                        <th>تاریخ ثبت سفارش</th>
+                        <th>وضعیت</th>
+                        <th>بروزرسانی</th>
+                        <th>حذف سفارش</th>
+                    </tr>
+
+                        {% for order in orders %}
+                            <tr>
+                                <td>{{ order.product.name }}</td>
+                                <td>{{ order.notes }}</td>
+                                <td>{{ order.date_created }}</td>
+                                <td>{{ order.status }}</td>
+                                <td>
+                                    <a class="btn btn-outline-primary" href="{% url 'update_order' order.id %}"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+                                </td>
+                                <td>
+                                    <a class="btn btn-danger" href="{% url 'delete_order' order.id %}" ><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+
+
+
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Table Row -->
+
+
+{% endblock content %}

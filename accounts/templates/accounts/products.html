@@ -1,0 +1,38 @@
+{% extends "accounts/main.html" %}
+
+{% block content %}
+  
+<div class="row">
+    <div class="col-md">
+        <div class="card card-body">
+            <h5>لیست محصولات</h5>
+        </div>
+        <div class="card card-body">
+            <table class="table">
+                <tr>
+                    <th>عنوان محصول</th>
+                    <th>دسته بندی</th>
+                    <th>قیمت</th>
+                </tr>
+
+                {% for i in products %}
+					<tr>
+						<td>
+							{{ i.name }}
+						</td>
+						<td>
+							{{ i.category }}
+						</td>
+						<td>
+							<strong dir="rtl">${{ i.price }}</strong>
+						</td>
+					</tr>
+                {% endfor %}
+
+
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

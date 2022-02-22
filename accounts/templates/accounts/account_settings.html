@@ -1,0 +1,53 @@
+{% extends "accounts/main.html" %}
+{% load static %}
+{% block content %}
+
+<style>
+    .profile-pic {
+        max-width: 200px;
+        max-height: 200px;
+        margin: 0 auto;
+        border-radius: 50%;
+        overflow: hidden;
+    }
+</style>
+
+
+{% if messages %}
+{% for message in messages %}
+    <div class="alert alert-{{ message.tags }}" role="alert">
+        <p>{{ message }}</p>
+    </div>
+    {% endfor %}
+{% endif %}
+
+
+<br>
+<div class="row">
+    <div class="col-md-3">
+        <div class="card card-body">
+            <a class="btn btn-warning" href="{% url 'dashboard' %}">&#8592; بازگشت به صفحه قبلی</a>
+            <hr>
+            <h3 style="text-align: center;">تنظیمات حساب کاربری</h3>
+            <hr>
+            <img class="profile-pic" src="{{ request.user.customer.profile_pic.url }}" alt="profile-pic">
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div class="card card-body">
+            <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+
+
+                {{ form.as_p }}
+
+
+                <input class="btn btn-primary" type="submit" value="بروزرسانی مشخصات">
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock content %}
